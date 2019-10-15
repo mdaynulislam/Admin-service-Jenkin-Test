@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('build') {
+            steps {
+              bat '''
+                 cd admin
+                 ./mvnw -DskipTests clean compile
+              '''
+            }
+        }
+
+        stage('test') {
+            steps {
+              bat '''
+                 cd admin
+                     ./mvnw test
+              '''
+            }
+        }
+
+        stage('deliver') {
+            steps {
+              bat '''
+                 cd admin
+                     ./mvnw -DskipTests install
+              '''
+            }
+        }
+
+    }
+}
